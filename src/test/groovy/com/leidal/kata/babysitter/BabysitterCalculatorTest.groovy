@@ -1,7 +1,6 @@
 package com.leidal.kata.babysitter
 
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class BabysitterCalculatorTest extends GroovyTestCase {
 
@@ -61,6 +60,27 @@ class BabysitterCalculatorTest extends GroovyTestCase {
                 LocalDateTime.of(2019, 2, 28, 22, 00),
                 new Family()
         )
+        assert pay == 0
+    }
+
+    void testShouldNotBeAbleToWorkMoreThan11Hours() {
+        def msg = shouldFail {
+            babysitterCalculator.calculateTotalPay(
+                    LocalDateTime.of(2019, 2, 28, 17,00),
+                    LocalDateTime.of(2019, 3, 2, 2, 00),
+                    new Family()
+            )
+        }
+        assert 'Babysitter cannot work more than 11 hours' == msg
+    }
+
+    void testShouldBeAbleToWorkAFullShift() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new Family()
+        )
+
         assert pay == 0
     }
 }
