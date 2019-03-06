@@ -12,17 +12,18 @@ class BabysitterCalculator {
             validateHoursAreAcceptable(startDateTime, endDateTime)
         )
 
+        BigDecimal.ZERO
     }
 
     void validateHoursAreAcceptable(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if(endDateTime.isBefore(startDateTime)) {
             throw new Exception("End time must be after start time")
-        } else if(startDateTime.toLocalTime().isBefore(LocalTime.of(17,00))) {
-            throw new Exception("Babysitter cannot start before 5 PM")
-        } else if(endDateTime.toLocalTime().isAfter(LocalTime.of(4,00))) {
-            throw new Exception("Babysitter cannot end after 4 AM")
+        } else if(startDateTime.toLocalTime().isAfter(LocalTime.of(4,0)) && startDateTime.toLocalTime().isBefore(LocalTime.of(17,00))) {
+            throw new Exception("Babysitter cannot start between 4 AM and 5 PM")
+        } else if(endDateTime.toLocalTime().isAfter(LocalTime.of(4,00)) && endDateTime.toLocalTime().isBefore(LocalTime.of(17,00))) {
+            throw new Exception("Babysitter cannot end between 4 AM and 5 PM")
         } else {
-            //hopefully we can actually pay the babysitter
+            //do nothing yet, will be paying babysitter
         }
     }
 }

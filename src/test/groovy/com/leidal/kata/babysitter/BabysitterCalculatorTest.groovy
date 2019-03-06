@@ -20,7 +20,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
                     new Family()
             )
         }
-        assert 'Babysitter cannot start before 5 PM' == msg
+        assert 'Babysitter cannot start between 4 AM and 5 PM' == msg
     }
 
     void testShouldNotEndLaterThan4AM() {
@@ -31,7 +31,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
                     new Family()
             )
         }
-        assert 'Babysitter cannot end after 4 AM' == msg
+        assert 'Babysitter cannot end between 4 AM and 5 PM' == msg
     }
 
     void testShouldBabysitForOneFamily() {
@@ -53,5 +53,14 @@ class BabysitterCalculatorTest extends GroovyTestCase {
             )
         }
         assert 'End time must be after start time' == msg
+    }
+
+    void testShouldBeAbleToEndAfter4AMIfSameDayAndStartTimeWasBeforeMidnight() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17,00),
+                LocalDateTime.of(2019, 2, 28, 22, 00),
+                new Family()
+        )
+        assert pay == 0
     }
 }
