@@ -18,14 +18,14 @@ class BabysitterCalculator {
     void validateHoursAreAcceptable(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if(endDateTime.isBefore(startDateTime)) {
             throw new Exception("End time must be after start time")
+        } else if(startDateTime.minute != 0 || endDateTime.minute != 0) {
+            throw new Exception("Babysitter cannot work fractional hours, must start and end on the hour.")
         } else if(startDateTime.toLocalTime().isAfter(LocalTime.of(4,0)) && startDateTime.toLocalTime().isBefore(LocalTime.of(17,00))) {
             throw new Exception("Babysitter cannot start between 4 AM and 5 PM")
         } else if(endDateTime.toLocalTime().isAfter(LocalTime.of(4,00)) && endDateTime.toLocalTime().isBefore(LocalTime.of(17,00))) {
             throw new Exception("Babysitter cannot end between 4 AM and 5 PM")
         } else if(Duration.between(startDateTime, endDateTime).toHours() > 11) {
             throw new Exception("Babysitter cannot work more than 11 hours")
-        } else {
-            //do nothing because we need to pay the babysitter
         }
     }
 }

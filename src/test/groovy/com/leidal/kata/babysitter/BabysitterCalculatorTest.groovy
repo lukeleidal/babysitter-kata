@@ -14,7 +14,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
     void testShouldNotStartEarlierThan5PM() {
         def msg = shouldFail {
             babysitterCalculator.calculateTotalPay(
-                    LocalDateTime.of(2019, 2, 28, 16, 59),
+                    LocalDateTime.of(2019, 2, 28, 16,00),
                     LocalDateTime.of(2019, 2, 28, 20, 0),
                     new Family()
             )
@@ -26,7 +26,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
         def msg = shouldFail {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 2, 28, 17,00),
-                    LocalDateTime.of(2019, 3, 1, 4, 01),
+                    LocalDateTime.of(2019, 3, 1, 5, 00),
                     new Family()
             )
         }
@@ -47,7 +47,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
         def msg = shouldFail {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 02, 28, 17, 00),
-                    LocalDateTime.of(2019, 02, 28, 16, 59),
+                    LocalDateTime.of(2019, 02, 28, 16, 00),
                     new Family()
             )
         }
@@ -74,13 +74,17 @@ class BabysitterCalculatorTest extends GroovyTestCase {
         assert 'Babysitter cannot work more than 11 hours' == msg
     }
 
-    void testShouldBeAbleToWorkAFullShift() {
-        BigDecimal pay = babysitterCalculator.calculateTotalPay(
-                LocalDateTime.of(2019, 2, 28, 17, 00),
-                LocalDateTime.of(2019, 3, 1, 4, 00),
-                new Family()
-        )
+    void testShouldNotBeAbleToEnterFractionalHours() {
+        def msg = shouldFail {
+            babysitterCalculator.calculateTotalPay(
+                    LocalDateTime.of(2019, 2, 28, 17, 01),
+                    LocalDateTime.of(2019, 3, 1, 3, 59),
+                    new Family()
+            )
+        }
 
-        assert pay == 0
+        assert 'Babysitter cannot work fractional hours, must start and end on the hour.' == msg
     }
+
+
 }
