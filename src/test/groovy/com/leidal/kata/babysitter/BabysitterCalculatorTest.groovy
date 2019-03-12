@@ -95,5 +95,23 @@ class BabysitterCalculatorTest extends GroovyTestCase {
         assert pay == BigDecimal.valueOf(190)
     }
 
+    void testShouldCalculateTotalPayForFamilyB() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyB()
+        )
+        assert pay == BigDecimal.valueOf(140)
+    }
+
+    void testShouldCalculateTotalPayForFamilyC() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyC()
+        )
+        assert pay == BigDecimal.valueOf(189)
+    }
+
 
 }
