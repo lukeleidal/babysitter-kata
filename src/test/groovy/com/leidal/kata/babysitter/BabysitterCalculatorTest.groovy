@@ -16,7 +16,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 2, 28, 16,00),
                     LocalDateTime.of(2019, 2, 28, 20, 0),
-                    new Family()
+                    new FamilyA()
             )
         }
         assert 'Babysitter cannot start between 4 AM and 5 PM' == msg
@@ -27,7 +27,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 2, 28, 17,00),
                     LocalDateTime.of(2019, 3, 1, 5, 00),
-                    new Family()
+                    new FamilyA()
             )
         }
         assert 'Babysitter cannot end between 4 AM and 5 PM' == msg
@@ -48,7 +48,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 02, 28, 17, 00),
                     LocalDateTime.of(2019, 02, 28, 16, 00),
-                    new Family()
+                    new FamilyA()
             )
         }
         assert 'End time must be after start time' == msg
@@ -58,9 +58,9 @@ class BabysitterCalculatorTest extends GroovyTestCase {
         BigDecimal pay = babysitterCalculator.calculateTotalPay(
                 LocalDateTime.of(2019, 2, 28, 17,00),
                 LocalDateTime.of(2019, 2, 28, 22, 00),
-                new Family()
+                new FamilyA()
         )
-        assert pay == 0
+        assert pay == BigDecimal.valueOf(75)
     }
 
     void testShouldNotBeAbleToWorkMoreThan11Hours() {
@@ -68,7 +68,7 @@ class BabysitterCalculatorTest extends GroovyTestCase {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 2, 28, 17,00),
                     LocalDateTime.of(2019, 3, 2, 2, 00),
-                    new Family()
+                    new FamilyA()
             )
         }
         assert 'Babysitter cannot work more than 11 hours' == msg
@@ -79,11 +79,20 @@ class BabysitterCalculatorTest extends GroovyTestCase {
             babysitterCalculator.calculateTotalPay(
                     LocalDateTime.of(2019, 2, 28, 17, 01),
                     LocalDateTime.of(2019, 3, 1, 3, 59),
-                    new Family()
+                    new FamilyA()
             )
         }
 
         assert 'Babysitter cannot work fractional hours, must start and end on the hour.' == msg
+    }
+
+    void testShouldCalculateTotalPayForFamilyA() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyA()
+        )
+        assert pay == BigDecimal.valueOf(190)
     }
 
 

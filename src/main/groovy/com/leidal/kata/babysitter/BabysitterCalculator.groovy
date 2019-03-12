@@ -11,11 +11,18 @@ class BabysitterCalculator {
         } else (
             validateHoursAreAcceptable(startDateTime, endDateTime)
         )
+        Map<Integer, BigDecimal> hoursWorkedMap = getHoursWorkedMap(startDateTime, endDateTime, family)
 
-        BigDecimal.ZERO
+        BigDecimal pay = BigDecimal.ZERO
+
+        hoursWorkedMap.each { key, value ->
+            pay += value
+        }
+
+        pay
     }
 
-    void validateHoursAreAcceptable(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    static void validateHoursAreAcceptable(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if(endDateTime.isBefore(startDateTime)) {
             throw new Exception("End time must be after start time")
         } else if(startDateTime.minute != 0 || endDateTime.minute != 0) {
@@ -27,5 +34,19 @@ class BabysitterCalculator {
         } else if(Duration.between(startDateTime, endDateTime).toHours() > 11) {
             throw new Exception("Babysitter cannot work more than 11 hours")
         }
+    }
+
+    static Map<Integer, BigDecimal> getHoursWorkedMap(LocalDateTime startDateTime, LocalDateTime endDateTime, Family family) {
+        int startHourIndex = family.payRatesByHour.findIndexOf {it.key == startDateTime.hour}
+        int endHourIndex = family.payRatesByHour.findIndexOf {it.key == endDateTime.hour-1}
+        Map<Integer, BigDecimal> hoursWorkedMap = [:]
+
+        family.payRatesByHour.eachWithIndex { it, i ->
+            if(i >= startHourIndex && i <= endHourIndex) {
+                hoursWorkedMap << it
+            }
+        }
+
+        hoursWorkedMap
     }
 }

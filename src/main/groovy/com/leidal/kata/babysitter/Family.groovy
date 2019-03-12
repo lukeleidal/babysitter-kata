@@ -1,5 +1,6 @@
 package com.leidal.kata.babysitter
 
 
-class Family {
+interface Family {
+    Map<Integer, BigDecimal> getPayRatesByHour()
 }
