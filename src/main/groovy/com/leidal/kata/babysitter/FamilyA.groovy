@@ -14,7 +14,8 @@ class FamilyA implements Family {
                 0 : BigDecimal.valueOf(20),
                 1 : BigDecimal.valueOf(20),
                 2 : BigDecimal.valueOf(20),
-                3 : BigDecimal.valueOf(20)
+                3 : BigDecimal.valueOf(20),
+                4 : BigDecimal.valueOf(0)
         ]
     }
 }

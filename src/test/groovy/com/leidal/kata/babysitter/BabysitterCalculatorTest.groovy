@@ -140,9 +140,112 @@ class BabysitterCalculatorTest extends GroovyTestCase {
         assert pay == BigDecimal.valueOf(96)
     }
 
+    void testMidnightStartPayForFamilyA() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 3, 1, 0, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyA()
+        )
+        assert pay == BigDecimal.valueOf(80)
+    }
 
+    void testMidnightStartPayForFamilyB() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 3, 1, 0, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyB()
+        )
+        assert pay == BigDecimal.valueOf(64)
+    }
 
+    void testMidnightStartPayForFamilyC() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 3, 1, 0, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyC()
+        )
+        assert pay == BigDecimal.valueOf(60)
+    }
 
+    void testMidnightEndPayForFamilyA() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 0, 00),
+                new FamilyA()
+        )
+        assert pay == BigDecimal.valueOf(110)
+    }
 
+    void testMidnightEndPayForFamilyB() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 0, 00),
+                new FamilyB()
+        )
+        assert pay == BigDecimal.valueOf(76)
+    }
+
+    void testMidnightEndPayForFamilyC() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 3, 1, 0, 00),
+                new FamilyC()
+        )
+        assert pay == BigDecimal.valueOf(129)
+    }
+
+    void testStartAndEndBeforeMidnightPayForFamilyA() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 2, 28, 23, 00),
+                new FamilyA()
+        )
+        assert pay == BigDecimal.valueOf(90)
+    }
+
+    void testStartAndEndBeforeMidnightForFamilyB() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 2, 28, 23, 00),
+                new FamilyB()
+        )
+        assert pay == BigDecimal.valueOf(68)
+    }
+
+    void testStartAndEndBeforeMidnightPayForFamilyC() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 2, 28, 17, 00),
+                LocalDateTime.of(2019, 2, 28, 23, 00),
+                new FamilyC()
+        )
+        assert pay == BigDecimal.valueOf(114)
+    }
+
+    void testStartAndEndAfterMidnightPayForFamilyA() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 3, 1, 1, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyA()
+        )
+        assert pay == BigDecimal.valueOf(60)
+    }
+
+    void testStartAndEndAfterMidnightForFamilyB() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 3, 1, 1, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyB()
+        )
+        assert pay == BigDecimal.valueOf(48)
+    }
+
+    void testStartAndEndAfterMidnightPayForFamilyC() {
+        BigDecimal pay = babysitterCalculator.calculateTotalPay(
+                LocalDateTime.of(2019, 3, 1, 1, 00),
+                LocalDateTime.of(2019, 3, 1, 4, 00),
+                new FamilyC()
+        )
+        assert pay == BigDecimal.valueOf(45)
+    }
 
 }

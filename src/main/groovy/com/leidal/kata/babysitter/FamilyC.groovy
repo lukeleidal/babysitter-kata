@@ -14,7 +14,8 @@ class FamilyC implements Family {
                 0 : BigDecimal.valueOf(15),
                 1 : BigDecimal.valueOf(15),
                 2 : BigDecimal.valueOf(15),
-                3 : BigDecimal.valueOf(15)
+                3 : BigDecimal.valueOf(15),
+                4 : BigDecimal.valueOf(0)
         ]
     }
 }

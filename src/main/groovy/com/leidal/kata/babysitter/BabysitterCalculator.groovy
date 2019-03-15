@@ -5,12 +5,12 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BabysitterCalculator {
-    BigDecimal calculateTotalPay(LocalDateTime startDateTime, LocalDateTime endDateTime, Family family) throws Exception{
+    static BigDecimal calculateTotalPay(LocalDateTime startDateTime, LocalDateTime endDateTime, Family family) throws Exception{
         if(family == null) {
             throw new Exception("Babysitter must have a family for which to babysit")
-        } else (
-            validateHoursAreAcceptable(startDateTime, endDateTime)
-        )
+        }
+
+        validateHoursAreAcceptable(startDateTime, endDateTime)
         Map<Integer, BigDecimal> hoursWorkedMap = getHoursWorkedMap(startDateTime, endDateTime, family)
 
         BigDecimal pay = BigDecimal.ZERO
@@ -38,7 +38,9 @@ class BabysitterCalculator {
 
     static Map<Integer, BigDecimal> getHoursWorkedMap(LocalDateTime startDateTime, LocalDateTime endDateTime, Family family) {
         int startHourIndex = family.payRatesByHour.findIndexOf {it.key == startDateTime.hour}
-        int endHourIndex = family.payRatesByHour.findIndexOf {it.key == endDateTime.hour-1}
+        //fix - possibly write method to determine endhourindex to use
+        int endHourIndex = family.payRatesByHour.findIndexOf {it.key == endDateTime.hour} - 1
+
         Map<Integer, BigDecimal> hoursWorkedMap = [:]
 
         family.payRatesByHour.eachWithIndex { it, i ->

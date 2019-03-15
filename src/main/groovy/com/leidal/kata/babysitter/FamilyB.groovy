@@ -14,7 +14,8 @@ class FamilyB implements Family {
                 0 : BigDecimal.valueOf(16),
                 1 : BigDecimal.valueOf(16),
                 2 : BigDecimal.valueOf(16),
-                3 : BigDecimal.valueOf(16)
+                3 : BigDecimal.valueOf(16),
+                4 : BigDecimal.valueOf(0)
         ]
     }
 }
