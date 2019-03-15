@@ -26,7 +26,7 @@ The job:
 Deliverable:
 - Calculate total pay, based on babysitter start and end time, and a family.
 
-##Running tests
+## Running tests
 After cloning the project, at the root of the project, run "mvn test".
 Additionally, you could choose to open the project in an IDE, such as Intellij, navigate to the BabysitterCalculatorTest.groovy file and 
 run the tests directly from this file. (e.g. on MacOS Intellij, Cntrl-Shift-F10)
